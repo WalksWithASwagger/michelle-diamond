@@ -9,8 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OperaRouteImport } from './routes/opera'
+import { Route as CommissionRouteImport } from './routes/commission'
 import { Route as IndexRouteImport } from './routes/index'
 
+const OperaRoute = OperaRouteImport.update({
+  id: '/opera',
+  path: '/opera',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommissionRoute = CommissionRouteImport.update({
+  id: '/commission',
+  path: '/commission',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +31,50 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/commission': typeof CommissionRoute
+  '/opera': typeof OperaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/commission': typeof CommissionRoute
+  '/opera': typeof OperaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/commission': typeof CommissionRoute
+  '/opera': typeof OperaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/commission' | '/opera'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/commission' | '/opera'
+  id: '__root__' | '/' | '/commission' | '/opera'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommissionRoute: typeof CommissionRoute
+  OperaRoute: typeof OperaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/opera': {
+      id: '/opera'
+      path: '/opera'
+      fullPath: '/opera'
+      preLoaderRoute: typeof OperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commission': {
+      id: '/commission'
+      path: '/commission'
+      fullPath: '/commission'
+      preLoaderRoute: typeof CommissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommissionRoute: CommissionRoute,
+  OperaRoute: OperaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
