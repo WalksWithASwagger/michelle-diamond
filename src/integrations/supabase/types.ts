@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      commission_enquiries: {
+        Row: {
+          budget: string | null
+          category: string
+          context: string | null
+          coverage: string | null
+          created_at: string
+          dates: string | null
+          deadline: string | null
+          email: string
+          id: string
+          image_use: string | null
+          location: string | null
+          name: string
+          organization: string | null
+          phone: string | null
+          project: string
+          status: string
+        }
+        Insert: {
+          budget?: string | null
+          category: string
+          context?: string | null
+          coverage?: string | null
+          created_at?: string
+          dates?: string | null
+          deadline?: string | null
+          email: string
+          id?: string
+          image_use?: string | null
+          location?: string | null
+          name: string
+          organization?: string | null
+          phone?: string | null
+          project: string
+          status?: string
+        }
+        Update: {
+          budget?: string | null
+          category?: string
+          context?: string | null
+          coverage?: string | null
+          created_at?: string
+          dates?: string | null
+          deadline?: string | null
+          email?: string
+          id?: string
+          image_use?: string | null
+          location?: string | null
+          name?: string
+          organization?: string | null
+          phone?: string | null
+          project?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
