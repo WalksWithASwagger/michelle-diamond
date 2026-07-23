@@ -18,13 +18,13 @@ import event2 from "@/assets/event-2.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Diamond's Edge Photography — She knows the stage from both sides of the light" },
+      { title: "Diamond's Edge Photography She knows the stage from both sides of the light" },
       {
         name: "description",
         content:
           "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
       },
-      { property: "og:title", content: "Diamond's Edge Photography — She knows the stage from both sides of the light" },
+      { property: "og:title", content: "Diamond's Edge Photography She knows the stage from both sides of the light" },
       {
         property: "og:description",
         content:

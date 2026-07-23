@@ -79,28 +79,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Diamond's Edge Photography — Opera, Performance, Portraits" },
+      { title: "Diamond's Edge Photography She knows the stage from both sides of the light" },
       {
         name: "description",
         content:
-          "Michelle Diamond is a former opera singer who photographs performance, rehearsal, portraiture, and cultural events with an insider's understanding of the stage.",
+          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
       },
       { name: "author", content: "Michelle Diamond" },
       { property: "og:site_name", content: "Diamond's Edge Photography" },
-      { property: "og:title", content: "Diamond's Edge Photography — Opera, Performance, Portraits" },
+      { property: "og:title", content: "Diamond's Edge Photography She knows the stage from both sides of the light" },
       {
         property: "og:description",
         content:
-          "Photography made from inside the performance. Opera, rehearsal, portrait, and event work by Michelle Diamond.",
+          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Diamond's Edge Photography" },
+      { name: "twitter:title", content: "Diamond's Edge Photography She knows the stage from both sides of the light" },
       {
         name: "twitter:description",
         content:
-          "Photography made from inside the performance. Opera, rehearsal, portrait, and event work.",
+          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
       },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3933376b-a391-4094-b4c0-c1314551538a/id-preview-90d6bf80--65dee320-b206-4c2f-befb-c0d6e20458ac.lovable.app-1784789204039.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3933376b-a391-4094-b4c0-c1314551538a/id-preview-90d6bf80--65dee320-b206-4c2f-befb-c0d6e20458ac.lovable.app-1784789204039.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
