@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
 
 import operaProdA from "@/assets/opera-production-a.jpg";
 import operaProdB from "@/assets/opera-production-b.jpg";
@@ -9,6 +11,15 @@ import opera4 from "@/assets/opera-4-peak.jpg";
 import opera5 from "@/assets/opera-5-ensemble.jpg";
 import opera6 from "@/assets/opera-6-curtain.jpg";
 import opera7 from "@/assets/opera-7-aftermath.jpg";
+import { GalleryLightbox, type LightboxItem } from "@/components/gallery-lightbox";
+import { GalleryGrid } from "@/components/gallery-grid";
+import { listGalleryImages } from "@/lib/gallery.functions";
+
+const operaGalleryQuery = queryOptions({
+  queryKey: ["gallery", "opera"],
+  queryFn: () => listGalleryImages({ data: { category: "opera" } }),
+  staleTime: 60 * 60 * 1000,
+});
 
 export const Route = createFileRoute("/opera")({
   head: () => ({
@@ -27,6 +38,7 @@ export const Route = createFileRoute("/opera")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(operaGalleryQuery),
   component: OperaPage,
 });
 
@@ -117,6 +129,24 @@ const operaServices = [
 ];
 
 function OperaPage() {
+  const { data: galleryData } = useSuspenseQuery(operaGalleryQuery);
+  const galleryItems: LightboxItem[] = useMemo(
+    () => galleryData.map((r) => ({ id: r.id, url: r.url, altText: r.altText, title: r.title, caption: r.caption })),
+    [galleryData],
+  );
+
+  const [lightbox, setLightbox] = useState<{ items: LightboxItem[]; index: number } | null>(null);
+  const openProduction = (production: Production, imgIndex: number) => {
+    const items: LightboxItem[] = production.images.map((img, i) => ({
+      id: `${production.title}-${i}`,
+      url: img.src,
+      altText: img.alt,
+      title: i === 0 ? production.title : null,
+      caption: i === 0 ? production.note : null,
+    }));
+    setLightbox({ items, index: imgIndex });
+  };
+
   return (
     <div className="bg-ivory text-ink">
       {/* Hero */}
@@ -182,9 +212,12 @@ function OperaPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
               {p.images.map((img, i) => (
-                <figure
+                <button
+                  type="button"
                   key={i}
-                  className={`overflow-hidden ${
+                  onClick={() => openProduction(p, i)}
+                  aria-label={`Open ${p.title} plate ${i + 1}`}
+                  className={`group relative overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-oxblood ${
                     i === 0
                       ? "md:col-span-12"
                       : i % 2 === 1
@@ -196,11 +229,12 @@ function OperaPage() {
                     src={img.src}
                     alt={img.alt}
                     loading="lazy"
-                    className={`w-full h-full object-cover ${img.ratio}`}
+                    className={`w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.2,0.6,0.2,1)] group-hover:scale-[1.015] ${img.ratio}`}
                   />
-                </figure>
+                </button>
               ))}
             </div>
+
 
             <div className="mt-14 grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-8">
@@ -267,6 +301,26 @@ function OperaPage() {
         </div>
       </section>
 
+      {/* Selected performances — DB-driven */}
+      {galleryItems.length > 0 && (
+        <section className="border-b border-brass/30 bg-paper/40">
+          <div className="mx-auto max-w-[1400px] px-6 py-24 lg:px-12 lg:py-32">
+            <div className="max-w-2xl">
+              <p className="meta-label">Selected performances</p>
+              <h2 className="mt-6 font-display text-4xl leading-[1.08] text-ink sm:text-5xl">
+                A working portfolio, <span className="italic">renewed as new work arrives.</span>
+              </h2>
+              <p className="mt-6 font-body text-lg text-ink/75">
+                Move through the plates with the arrow keys, or with a swipe on touch.
+              </p>
+            </div>
+            <div className="mt-14">
+              <GalleryGrid items={galleryItems} variant="brick" />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA */}
       <section>
         <div className="mx-auto max-w-[1100px] px-6 py-32 lg:py-40 text-center">
@@ -287,6 +341,13 @@ function OperaPage() {
           </div>
         </div>
       </section>
+
+      <GalleryLightbox
+        items={lightbox?.items ?? []}
+        index={lightbox?.index ?? null}
+        onClose={() => setLightbox(null)}
+        onIndexChange={(i) => setLightbox((l) => (l ? { ...l, index: i } : l))}
+      />
     </div>
   );
 }
