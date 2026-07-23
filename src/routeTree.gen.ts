@@ -9,13 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortraitsRouteImport } from './routes/portraits'
 import { Route as OperaRouteImport } from './routes/opera'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as CommissionRouteImport } from './routes/commission'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as AuthenticatedAdminGalleriesRouteImport } from './routes/_authenticated.admin.galleries'
+import { Route as AuthenticatedAdminEnquiriesRouteImport } from './routes/_authenticated.admin.enquiries'
 
+const PortraitsRoute = PortraitsRouteImport.update({
+  id: '/portraits',
+  path: '/portraits',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OperaRoute = OperaRouteImport.update({
   id: '/opera',
   path: '/opera',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommissionRoute = CommissionRouteImport.update({
@@ -23,49 +42,162 @@ const CommissionRoute = CommissionRouteImport.update({
   path: '/commission',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminGalleriesRoute =
+  AuthenticatedAdminGalleriesRouteImport.update({
+    id: '/galleries',
+    path: '/galleries',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminEnquiriesRoute =
+  AuthenticatedAdminEnquiriesRouteImport.update({
+    id: '/enquiries',
+    path: '/enquiries',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/commission': typeof CommissionRoute
+  '/events': typeof EventsRoute
   '/opera': typeof OperaRoute
+  '/portraits': typeof PortraitsRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/commission': typeof CommissionRoute
+  '/events': typeof EventsRoute
   '/opera': typeof OperaRoute
+  '/portraits': typeof PortraitsRoute
+  '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/commission': typeof CommissionRoute
+  '/events': typeof EventsRoute
   '/opera': typeof OperaRoute
+  '/portraits': typeof PortraitsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/_authenticated/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/commission' | '/opera'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/commission'
+    | '/events'
+    | '/opera'
+    | '/portraits'
+    | '/admin'
+    | '/admin/enquiries'
+    | '/admin/galleries'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/commission' | '/opera'
-  id: '__root__' | '/' | '/commission' | '/opera'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/commission'
+    | '/events'
+    | '/opera'
+    | '/portraits'
+    | '/admin/enquiries'
+    | '/admin/galleries'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth'
+    | '/commission'
+    | '/events'
+    | '/opera'
+    | '/portraits'
+    | '/_authenticated/admin'
+    | '/_authenticated/admin/enquiries'
+    | '/_authenticated/admin/galleries'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   CommissionRoute: typeof CommissionRoute
+  EventsRoute: typeof EventsRoute
   OperaRoute: typeof OperaRoute
+  PortraitsRoute: typeof PortraitsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portraits': {
+      id: '/portraits'
+      path: '/portraits'
+      fullPath: '/portraits'
+      preLoaderRoute: typeof PortraitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/opera': {
       id: '/opera'
       path: '/opera'
       fullPath: '/opera'
       preLoaderRoute: typeof OperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/commission': {
@@ -75,6 +207,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommissionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,24 +235,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/galleries': {
+      id: '/_authenticated/admin/galleries'
+      path: '/galleries'
+      fullPath: '/admin/galleries'
+      preLoaderRoute: typeof AuthenticatedAdminGalleriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/enquiries': {
+      id: '/_authenticated/admin/enquiries'
+      path: '/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AuthenticatedAdminEnquiriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminEnquiriesRoute: typeof AuthenticatedAdminEnquiriesRoute
+  AuthenticatedAdminGalleriesRoute: typeof AuthenticatedAdminGalleriesRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminEnquiriesRoute: AuthenticatedAdminEnquiriesRoute,
+  AuthenticatedAdminGalleriesRoute: AuthenticatedAdminGalleriesRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   CommissionRoute: CommissionRoute,
+  EventsRoute: EventsRoute,
   OperaRoute: OperaRoute,
+  PortraitsRoute: PortraitsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -1,17 +1,43 @@
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
+import { supabase } from "@/integrations/supabase/client";
+import { getMyRole } from "@/lib/admin.functions";
+
 const navItems = [
-  { label: "Opera", to: "/opera", enabled: true },
-  { label: "Portraits", to: "#portraits", enabled: false },
-  { label: "Events", to: "#events", enabled: false },
-  { label: "About", to: "#about", enabled: false },
-  { label: "Journal", to: "#journal", enabled: false },
+  { label: "Opera", to: "/opera" as const },
+  { label: "Portraits", to: "/portraits" as const },
+  { label: "Events", to: "/events" as const },
+  { label: "About", to: "/about" as const },
 ];
+
+function useSession() {
+  const [hasSession, setHasSession] = useState(false);
+  useEffect(() => {
+    let active = true;
+    supabase.auth.getSession().then(({ data }) => { if (active) setHasSession(!!data.session); });
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED" || event === "INITIAL_SESSION") {
+        supabase.auth.getSession().then(({ data }) => { if (active) setHasSession(!!data.session); });
+      }
+    });
+    return () => { active = false; sub.subscription.unsubscribe(); };
+  }, []);
+  return hasSession;
+}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const hasSession = useSession();
+  const role = useQuery({
+    queryKey: ["me", "role"],
+    queryFn: () => getMyRole(),
+    enabled: hasSession,
+    staleTime: 5 * 60 * 1000,
+  });
+  const showAdmin = hasSession && role.data?.isAdmin === true;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -35,25 +61,24 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden lg:flex items-center gap-9">
-          {navItems.map((item) =>
-            item.enabled ? (
-              <Link
-                key={item.label}
-                to={item.to}
-                className="font-sans-ui text-[13px] tracking-[0.18em] uppercase text-ink/80 hover:text-oxblood transition-colors"
-                activeProps={{ className: "text-oxblood" }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                key={item.label}
-                title="Coming soon"
-                className="font-sans-ui text-[13px] tracking-[0.18em] uppercase text-ink/40 cursor-default"
-              >
-                {item.label}
-              </span>
-            ),
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              className="font-sans-ui text-[13px] tracking-[0.18em] uppercase text-ink/80 hover:text-oxblood transition-colors"
+              activeProps={{ className: "text-oxblood" }}
+            >
+              {item.label}
+            </Link>
+          ))}
+          {showAdmin && (
+            <Link
+              to="/admin"
+              className="font-sans-ui text-[13px] tracking-[0.18em] uppercase text-ink/60 hover:text-oxblood transition-colors border-l border-brass/40 pl-9"
+              activeProps={{ className: "text-oxblood" }}
+            >
+              Studio
+            </Link>
           )}
         </nav>
 
@@ -80,24 +105,24 @@ export function SiteHeader() {
       {open && (
         <div className="lg:hidden border-t border-brass/30 bg-ivory">
           <nav className="mx-auto flex max-w-[1400px] flex-col gap-1 px-6 py-6">
-            {navItems.map((item) =>
-              item.enabled ? (
-                <Link
-                  key={item.label}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="font-sans-ui text-sm tracking-[0.18em] uppercase text-ink py-2"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <span
-                  key={item.label}
-                  className="font-sans-ui text-sm tracking-[0.18em] uppercase text-ink/40 py-2"
-                >
-                  {item.label}
-                </span>
-              ),
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                onClick={() => setOpen(false)}
+                className="font-sans-ui text-sm tracking-[0.18em] uppercase text-ink py-2"
+              >
+                {item.label}
+              </Link>
+            ))}
+            {showAdmin && (
+              <Link
+                to="/admin"
+                onClick={() => setOpen(false)}
+                className="font-sans-ui text-sm tracking-[0.18em] uppercase text-ink/70 py-2 border-t border-brass/30 mt-2 pt-3"
+              >
+                Studio
+              </Link>
             )}
             <Link
               to="/commission"

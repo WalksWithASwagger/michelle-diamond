@@ -1,80 +1,104 @@
 
-# Diamond's Edge Photography — Build Plan
+## Scope
 
-Scope: Homepage + Opera page, editorial ivory/oxblood direction, AI-generated placeholder imagery, working commission form persisted via Lovable Cloud.
+1. Admin panel (uploads + captions + ordering + enquiry review), email/password sign-in, gated to Michelle's account only.
+2. Enhanced lightbox for the Opera portfolio: keyboard, swipe, and a subtle "stage-light" spotlight that tracks the cursor / touch.
+3. About page connecting opera history to photography (placeholder lorem ipsum for now).
+4. Events portfolio page (rooms, atmosphere, discretion).
+5. Portrait & Publicity gallery page (editorial captions, easy viewing).
 
-## Design foundation
+Homepage and existing Opera page stay as-is; the new gallery pages are the DB-driven surfaces.
 
-Set the whole visual system in `src/styles.css` before writing components. This carries across every future page.
-
-- Colors (oklch-converted): House Ivory `#F5F0E7`, Program Paper `#E7DDCF`, Oxblood `#69243A`, Aubergine `#3C2938`, Stage Blue `#34495D`, Shell `#D8BDB4`, Aged Brass `#AF9463`, Warm Ink `#292522`, Soft White `#FBF9F5`. Background token = ivory, foreground = warm ink, primary = oxblood, muted = program paper.
-- Type: sculptural editorial serif for display (Cormorant Garamond), refined serif for long copy (Cormorant / EB Garamond body), neutral sans for nav + metadata + labels (Inter, tracked-out uppercase for production credits). Loaded via `<link>` in `__root.tsx` — never `@import` in styles.css.
-- Radii near-square (2–4px). No heavy shadows. Fine 1px brass or ink rules used like program-book rules. Generous margins, strong vertical rhythm.
-
-## Route + shell changes
-
-- `src/routes/__root.tsx`: swap Lovable placeholder meta for site meta ("Diamond's Edge Photography — Opera & Performance Photography"), add Google Fonts `<link>` for the two families. Root layout renders a shared `<SiteHeader />` (minimal nav: Opera · Portraits · Events · About · Journal · Commission Michelle, with oxblood "Commission Michelle" pill) and `<SiteFooter />` around `<Outlet />`. Portraits/Events/About/Journal nav links point to `#` placeholders for now (out of scope).
-- `src/routes/index.tsx`: rewrite as the homepage (per spec).
-- `src/routes/opera.tsx`: new deep Opera & Performance page.
-- `src/routes/commission.tsx`: new enquiry page (form + confirmation state) — target of every "Commission Michelle" / "Begin a conversation" CTA.
-- Each route defines its own `head()` with unique title, description, og:title, og:description.
-
-## Homepage sections (order matches spec)
-
-1. Hero — split composition, oversized image left/right, "She knows the stage from both sides of the light." Two CTAs: View the opera work → `/opera`, Discuss a production → `/commission?type=opera`.
-2. Inside Perspective — "Before she anticipated the shutter, she learned to anticipate the breath." paired with a quiet rehearsal image.
-3. Selected Opera Work — curated 7-image editorial sequence (empty stage → rehearsal → entrance → peak → ensemble → curtain call → aftermath), mixing full-bleed frames and diptychs. Production metadata revealed on hover (small caps, no permanent overlay). "Explore opera and performance" link.
-4. Four Principles — Breath / Timing / Presence / The Room, under "The difference is not access. It is understanding."
-5. Opera Commission Types — editorial rows (not cards) for Production coverage, Rehearsal & process, Artist portraits & publicity, Opening nights & patron events, Season & institutional archives. Each links to `/commission`.
-6. Selected Clients — quiet text list, oxblood on ivory, fine rules, placeholder company names clearly marked as sample — no fake logos, no carousel.
-7. Portraiture — secondary movement, "Portraits with the patience of rehearsal." 3-image editorial strip.
-8. Events — "The room, not merely the schedule." editorial pair of images.
-9. Testimonial — single pull quotation, editorial magazine style, with name/role/organization (marked as sample copy until Michelle confirms).
-10. Final CTA — pale, spacious, "Tell Michelle what is being made." → `/commission`.
-
-## Opera page
-
-- Hero: major performance image, "Photography from inside the music.", supporting copy from spec.
-- Two sample "productions" as miniature visual essays (title, company, venue, season, contextual note, curated image sequence, credits block in small caps, "Discuss this kind of work" prompt). Structured as data so more productions drop in later.
-- Opera services — editorial two-column list covering all 12 service lines from spec.
-- Closing CTA: "Planning a production, season, or artist campaign?" → Discuss the work.
-
-## Commission enquiry (`/commission`)
-
-Two-step feel on one page:
-
-1. "What are we making?" — select from the nine categories in spec (Opera production, Rehearsal or process, Artist portraits or publicity, Season campaign, Gala or opening night, Cultural or corporate event, Private event, Portrait commission, Something else). Pre-selects from `?type=` query.
-2. Details form: name, organization, email, phone (optional), production/project/occasion, dates, location/venue, coverage type, intended image use, delivery deadline, approximate scope/budget, additional context.
-
-Client-side zod validation with clear messages, sensible max lengths. On submit calls a `createServerFn` that inserts into Lovable Cloud. Success state replaces form with gracious confirmation copy from spec. Failure shows retry toast.
+---
 
 ## Backend (Lovable Cloud)
 
-Enable Cloud, then create one migration:
+**New tables**
 
-- Table `public.commission_enquiries` (id uuid pk default gen_random_uuid(), created_at timestamptz default now(), category text not null, name text not null, organization text, email text not null, phone text, project text not null, dates text, location text, coverage text, image_use text, deadline text, budget text, context text, status text default 'new').
-- Grants: `GRANT INSERT ON public.commission_enquiries TO anon, authenticated;` `GRANT ALL ON public.commission_enquiries TO service_role;` (no SELECT to anon/authenticated — enquiries are private to Michelle).
-- Enable RLS. Single policy: `CREATE POLICY "anyone can submit enquiry" ON public.commission_enquiries FOR INSERT TO anon, authenticated WITH CHECK (true);`. No SELECT policy for public roles.
+- `gallery_images` — `category` (enum: `opera` | `portrait` | `event`), `image_path` (storage path), `title`, `caption`, `alt_text`, `sort_order`, `published`, timestamps.
+- `app_role` enum + `user_roles` table + `has_role(user_id, role)` SECURITY DEFINER function (per project security rules — never store role on profiles).
+- `profiles` table (id → auth.users, display_name) with auto-create trigger.
 
-Server function `submitEnquiry` in `src/lib/enquiries.functions.ts` — public (no auth middleware), zod-validated inputs, uses server publishable client (`SUPABASE_URL` + `SUPABASE_PUBLISHABLE_KEY`, with the `sb_`-key fetch shim from the knowledge). Reads env inside the handler. No PII returned in response.
+**RLS**
+- `gallery_images`: public `SELECT` where `published = true`; admin full write via `has_role(auth.uid(), 'admin')`.
+- `user_roles`: user reads own rows; admin manages all.
+- `commission_enquiries`: keep public INSERT; add admin `SELECT`/`UPDATE` (status changes).
+- `profiles`: user reads/updates own; admin reads all.
 
-## Imagery
+**Storage**
+- New public bucket `gallery` for image files. Public read; admin-only write via RLS on `storage.objects`.
 
-Generate 15 placeholder photos with `imagegen` in the opera brand palette (warm ivory, oxblood, warm rehearsal light, aubergine stage darks). Editorial, cinematic, film-grain, no cliché opera-mask/curtain kitsch. Saved to `src/assets/` as `.jpg` and imported per component. Breakdown:
+**Auth**
+- Enable email/password sign-in; disable public signup (Michelle's account is seeded, no self-serve admins).
+- Michelle's admin account created via a one-time server function I'll run once after migration approval.
 
-- 1 hero opera portrait, 1 quiet backstage/rehearsal (inside perspective section), 7 for the homepage opera sequence, 3 portraits, 2 events, plus reuse in opera page + 2 fresh production hero images.
+---
 
-## Motion
+## Server functions (`src/lib/*.functions.ts`)
 
-Restrained: gentle fade-up on section reveal (Motion for React), slow crossfade between paired images, hover reveals for captions with 200–300ms ease. No parallax, no autoplay, no curtain effects. Respect `prefers-reduced-motion`.
+- `listGalleryImages({ category })` — public read.
+- `listEnquiries()`, `updateEnquiryStatus()` — admin-only (verifies `has_role` via `context.supabase`, then may load `client.server` inside handler if needed).
+- `upsertGalleryImage()`, `deleteGalleryImage()`, `reorderGalleryImages()` — admin-only.
+- `createSignedUploadUrl()` — admin-only; returns a signed URL so the browser uploads directly to the `gallery` bucket.
 
-## Out of scope for this pass
+All admin fns use `.middleware([requireSupabaseAuth])` and check `has_role(userId, 'admin')` before writing.
 
-Portraits / Events / About / Journal full pages (nav links go to `#` with clear "coming next" affordance in a follow-up). Real client logos, real testimonials, pricing, turnaround times — all marked as sample copy until Michelle confirms.
+---
+
+## Routes
+
+**Public**
+- `/about` — editorial single-column layout, portrait of Michelle, lorem ipsum body split into "The opera years / The turn to the lens / How I work" sections, each with pull-quotes styled with existing tokens.
+- `/portraits` — portrait & publicity gallery, DB-driven, editorial captions beside each image, opens lightbox.
+- `/events` — events portfolio; hero copy about rooms, atmosphere, discretion (no faces-in-crowd cliché); DB-driven grid → lightbox.
+- Opera portfolio gallery on existing `/opera` page gets upgraded to use the shared lightbox.
+
+**Auth**
+- `/auth` — email/password sign-in only. No self-serve signup UI.
+
+**Protected (`/_authenticated/admin/*`)**
+- `/admin` — dashboard: counts of new enquiries + image counts per category.
+- `/admin/enquiries` — table of enquiries with filter by status; row expands to full detail; status dropdown (new / reviewing / replied / archived).
+- `/admin/galleries` — tabs for Opera / Portraits / Events. Each tab: drag-to-reorder list, drop-zone uploader, inline caption/alt/title editing, publish toggle, delete.
+
+Nav header gains an "Admin" link only when the signed-in user has the `admin` role.
+
+---
+
+## Shared Lightbox component
+
+`src/components/gallery-lightbox.tsx` used by all four gallery surfaces (opera, portraits, events, and any admin previews):
+
+- Keyboard: Left/Right arrows navigate, Esc closes, Home/End jump.
+- Touch: swipe left/right to navigate, swipe down to dismiss.
+- **Stage-light effect**: a soft radial-gradient overlay (warm ivory→transparent) whose center follows `mousemove` / `touchmove`, so the image feels lit from a moving spotlight. Reduced-motion users get a static, centered halo instead.
+- Focus trap + `aria-modal` + captions rendered below the image in the editorial serif.
+
+---
+
+## Imagery (new placeholders to generate)
+
+- 1 editorial portrait of Michelle for `/about` (three-quarter, warm ink backdrop, opera-adjacent).
+- 4 portrait/publicity samples for `/portraits`.
+- 4 event-room samples for `/events` (empty rooms with atmosphere: chandeliers, place settings, foyer light — not crowds).
+
+Seeded into `gallery_images` in the same migration so both pages have content on first load.
+
+---
 
 ## Technical notes
 
-- Tailwind v4: tokens live in `@theme inline` in `src/styles.css`, semantic classes only (no `text-white`, `bg-black`).
-- Fonts loaded via `<link>` in `__root.tsx` head, not `@import`.
-- Cloud enable happens first so the migration + server function can land in the same build.
-- Every new route has its own `head()`; only leaf routes with a real hero image set `og:image`.
+- Admin gate: routes live under `src/routes/_authenticated/admin/*`. Managed `_authenticated/route.tsx` handles session redirect to `/auth`. Admin-only enforcement lives in the server functions via `has_role` — the client route additionally hides the UI when the role isn't present (checked via a `getMyRole` server fn cached in Query).
+- Uploads use signed URLs → direct-to-Storage PUT from the browser. Server fn only records the resulting `image_path` in `gallery_images`.
+- `client.server` is never imported at module scope in `.functions.ts` — always `await import(...)` inside handlers.
+- Existing `/opera` page and homepage's opera sequence remain static (they're editorial layouts, not a managed gallery). The Opera *gallery* section that gets the new lightbox is the grid on `/opera`.
+- SEO: each new route (`/about`, `/portraits`, `/events`, `/auth`) gets its own `head()` with unique title/description/og tags. No og:image on `__root`.
+
+---
+
+## Out of scope (call out explicitly)
+
+- Public signup / password reset flow (admin is a single seeded account).
+- Real bio copy — using lorem ipsum per your instruction.
+- Image editing (crop/rotate) inside admin — uploads are used as-is.
+- Analytics on enquiries beyond status.
