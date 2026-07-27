@@ -1,21 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import michellePortrait from "@/assets/michelle-portrait.jpg";
+import {
+  aboutMichelleLead,
+  aboutMichelleSpeaking,
+  aboutMichelleStrip,
+  siteCopy,
+} from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Michelle Diamond — Diamond's Edge Photography" },
+      { title: `About Michelle Diamond — ${siteCopy.fullBrand}` },
       {
         name: "description",
         content:
-          "Michelle Diamond photographs opera, performance, and cultural life from the inside — a former singer whose lens knows breath, timing, and the language of the stage.",
+          "Michelle Diamond is an editorial photographer for luxury hospitality, cultural institutions, performing arts, and extraordinary events across Vancouver & Surrey.",
       },
-      { property: "og:title", content: "About Michelle Diamond — Diamond's Edge Photography" },
+      { property: "og:title", content: `About Michelle Diamond — ${siteCopy.fullBrand}` },
       {
         property: "og:description",
         content:
-          "A former opera singer photographing performance, portraiture, and cultural events with an insider's understanding.",
+          "Opera shaped how Michelle Diamond sees: discipline, timing, elegance, and respect for craft in every frame.",
       },
       { property: "og:type", content: "profile" },
     ],
@@ -26,142 +31,230 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <div className="bg-ivory text-ink">
-      {/* Hero */}
       <section className="border-b border-brass/30">
         <div className="mx-auto grid max-w-[1400px] gap-12 px-6 pt-16 pb-20 lg:grid-cols-12 lg:gap-16 lg:px-12 lg:pt-24 lg:pb-32">
-          <div className="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-center">
-            <p className="meta-label">Portrait of the photographer</p>
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            <p className="meta-label">About Michelle</p>
             <h1 className="mt-8 font-display text-5xl leading-[1.02] text-ink sm:text-6xl lg:text-[4.25rem] fade-up">
-              A singer, then
+              Michelle Diamond
               <br />
-              <span className="italic text-oxblood">a photographer.</span>
+              <span className="italic text-oxblood">photographs exceptional work.</span>
             </h1>
             <p className="mt-10 max-w-md font-body text-lg leading-relaxed text-ink/80">
-              Michelle Diamond spent fifteen years on the operatic stage before turning
-              to the camera. The training did not fall away — it became the lens.
+              Editorial photographer for luxury hospitality, cultural institutions,
+              performing arts, and extraordinary events across Vancouver &amp; Surrey.
+            </p>
+            <p className="mt-4 font-sans-ui text-[11px] tracking-[0.18em] uppercase text-ink/50">
+              Diamond&apos;s Edge Photography · {siteCopy.studio}
             </p>
           </div>
-          <div className="lg:col-span-7 order-1 lg:order-2">
+          <div className="lg:col-span-6">
             <img
-              src={michellePortrait}
-              alt="Editorial portrait of Michelle Diamond."
-              width={1408}
-              height={1760}
+              src={aboutMichelleLead.src}
+              alt={aboutMichelleLead.alt}
+              width={1600}
+              height={2400}
               className="w-full h-auto object-cover aspect-[4/5] fade-up"
             />
+            <p className="mt-4 meta-label text-ink/55">{aboutMichelleLead.caption}</p>
           </div>
         </div>
       </section>
 
-      {/* The opera years */}
+      <section className="border-b border-brass/30">
+        <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-12 lg:py-16">
+          <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="meta-label">In the kit</p>
+              <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">
+                The photographer,{" "}
+                <span className="italic text-oxblood">not a stand-in.</span>
+              </h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-1 sm:gap-1.5 lg:grid-cols-4">
+            {aboutMichelleStrip.map((frame, i) => (
+              <div
+                key={frame.src}
+                className="gallery-tile relative aspect-[3/4] overflow-hidden bg-paper"
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
+                <img
+                  src={frame.src}
+                  alt={frame.alt}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-brass/30">
         <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-24 lg:grid-cols-12 lg:gap-14 lg:px-12 lg:py-32">
           <div className="lg:col-span-4">
             <p className="meta-label">Movement I</p>
             <h2 className="mt-6 font-display text-4xl italic text-ink leading-[1.05]">
-              The opera years
+              Why these rooms
             </h2>
           </div>
           <div className="lg:col-span-8 space-y-6 font-body text-[19px] leading-[1.7] text-ink/85">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Michelle trained at
-              conservatories in Europe and North America before joining the resident
-              ensemble of a mid-sized company, where she sang bel canto and Mozart for
-              nearly a decade.
+              Michelle is drawn to people who care deeply about creating something
+              exceptional — chefs, artistic directors, performers, hosts, founders, and
+              teams who have spent unseen hours getting the room ready.
             </p>
             <p>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate velit esse cillum dolore. The stagecraft, the sitzprobe, the
-              silent count between a downbeat and a first phrase — this is where the
-              eye was formed.
+              That is why the work spans luxury hospitality, cultural institutions,
+              performing arts, and extraordinary events. She is interested not only in how
+              beautiful the result looks, but in the craft, timing, and discipline that
+              made it possible.
             </p>
             <blockquote className="border-l-2 border-oxblood pl-6 font-display text-2xl italic text-ink/90 leading-snug">
-              &ldquo;The best photograph of a singer holds the breath just before the
-              note.&rdquo;
+              &ldquo;I love being in rooms where people care deeply about creating something
+              exceptional.&rdquo;
             </blockquote>
+            <p className="font-sans-ui text-[11px] tracking-[0.15em] uppercase text-ink/45">
+              Michelle Diamond
+            </p>
           </div>
         </div>
       </section>
 
-      {/* The turn to the lens */}
       <section className="border-b border-brass/30 bg-paper/60">
         <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-24 lg:grid-cols-12 lg:gap-14 lg:px-12 lg:py-32">
           <div className="lg:col-span-4">
             <p className="meta-label">Movement II</p>
             <h2 className="mt-6 font-display text-4xl italic text-ink leading-[1.05]">
-              The turn to the lens
+              What opera taught her
             </h2>
           </div>
           <div className="lg:col-span-8 space-y-6 font-body text-[19px] leading-[1.7] text-ink/85">
             <p>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-              deserunt mollit anim id est laborum. A vocal injury became a doorway. The
-              same colleagues who had shared rehearsal rooms and dressing rooms began to
-              ask for portraits — publicity photographs made by someone who understood
-              the work.
+              Opera shaped how Michelle sees. It taught her discipline, timing, elegance,
+              and respect for craft. Today, those lessons influence every photograph she
+              creates.
             </p>
             <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-              doloremque laudantium, totam rem aperiam. Within two years the practice
-              had grown to include full productions, season campaigns, and the quieter
-              cultural gatherings that surround the work — patron dinners, foundation
-              openings, festival receptions.
+              That background is practical, not nostalgic. She understands rehearsals,
+              backstage etiquette, lighting shifts, performers, orchestras, and when an
+              emotional peak is about to arrive.
+            </p>
+            <p>
+              The same instincts translate to gala floors, dining rooms, and institutional
+              events: respect the craft, anticipate the moment, and make images that feel
+              as composed as the work itself.
             </p>
           </div>
         </div>
       </section>
 
-      {/* How I work */}
+      <section className="border-b border-brass/30">
+        <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:px-12 lg:py-16">
+          <div className="mb-6">
+            <p className="meta-label">On camera</p>
+            <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">
+              Teaching presence —{" "}
+              <span className="italic text-oxblood">same eye, different stage.</span>
+            </h2>
+            <p className="mt-3 max-w-xl font-body text-base text-ink/70">
+              Workshop and speaking frames from Chai &amp; Chat and YVR Creatives — part of
+              how she shows up beyond the assignment.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-1 sm:grid-cols-3 sm:gap-1.5">
+            {aboutMichelleSpeaking.map((frame, i) => (
+              <div
+                key={frame.src}
+                className="gallery-tile group relative aspect-[3/2] overflow-hidden bg-paper"
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
+                <img
+                  src={frame.src}
+                  alt={frame.alt}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/75 to-transparent p-3">
+                  <p className="font-sans-ui text-[10px] tracking-[0.18em] uppercase text-ivory/85">
+                    {frame.label}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-brass/30">
         <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-24 lg:grid-cols-12 lg:gap-14 lg:px-12 lg:py-32">
           <div className="lg:col-span-4">
             <p className="meta-label">Movement III</p>
             <h2 className="mt-6 font-display text-4xl italic text-ink leading-[1.05]">
-              How I work
+              How she works in the room
             </h2>
           </div>
           <div className="lg:col-span-8 space-y-6 font-body text-[19px] leading-[1.7] text-ink/85">
             <p>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-              praesentium voluptatum deleniti atque corrupti. I arrive at the music
-              call, not the dress rehearsal. Coverage begins where the work begins.
+              Based in Surrey and working regularly across Vancouver, with studio access at
+              Nook Coworking in Richmond, Michelle brings a calm, editorial presence to
+              commissioned work.
             </p>
             <p>
-              Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
-              impedit quo minus id quod maxime placeat. I photograph quietly, in soft
-              shoes, from the pit rim or from the back of the house. I do not use
-              flash on stage, and I know when to lower the camera.
+              Whether the assignment is a portrait sitting, opening night, or black-tie
+              celebration, she is clear about usage, turnaround, and what the images need
+              to do once they leave the room.
             </p>
-            <blockquote className="border-l-2 border-oxblood pl-6 font-display text-2xl italic text-ink/90 leading-snug">
-              &ldquo;Discretion is not a style. It is the working condition.&rdquo;
-            </blockquote>
+            <dl className="mt-10 grid gap-6 text-sm sm:grid-cols-2">
+              <div>
+                <dt className="meta-label">Based</dt>
+                <dd className="mt-1">{siteCopy.location}</dd>
+              </div>
+              <div>
+                <dt className="meta-label">Studio</dt>
+                <dd className="mt-1">{siteCopy.studio}</dd>
+              </div>
+              <div>
+                <dt className="meta-label">Contact</dt>
+                <dd className="mt-1">
+                  <a href={`mailto:${siteCopy.email}`} className="text-oxblood hover:opacity-70">
+                    {siteCopy.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="meta-label">Instagram</dt>
+                <dd className="mt-1">
+                  <a
+                    href="https://www.instagram.com/diamondsedgephotography/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-oxblood hover:opacity-70"
+                  >
+                    @diamondsedgephotography
+                  </a>
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
       <section>
-        <div className="mx-auto max-w-[1100px] px-6 py-32 lg:py-40 text-center">
+        <div className="mx-auto max-w-[1100px] px-6 py-28 lg:py-36 text-center">
           <p className="meta-label">Coda</p>
           <h2 className="mt-8 font-display text-4xl leading-[1.05] text-ink sm:text-5xl lg:text-[3.5rem]">
             Commissioning
             <br />
-            <span className="italic text-oxblood">a season, a production, a portrait.</span>
+            <span className="italic text-oxblood">begins with a conversation.</span>
           </h2>
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
+          <div className="mt-10">
             <Link
               to="/commission"
               className="inline-flex items-center justify-center bg-oxblood px-10 py-5 font-sans-ui text-[12px] tracking-[0.22em] uppercase text-primary-foreground transition-opacity hover:opacity-90"
             >
-              Discuss the work
-            </Link>
-            <Link
-              to="/opera"
-              className="inline-flex items-center justify-center border border-oxblood/60 px-10 py-5 font-sans-ui text-[12px] tracking-[0.22em] uppercase text-oxblood hover:bg-oxblood hover:text-primary-foreground transition-colors"
-            >
-              Opera portfolio
+              Begin a conversation
             </Link>
           </div>
         </div>

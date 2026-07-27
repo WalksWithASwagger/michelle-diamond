@@ -9,42 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PortraitsRouteImport } from './routes/portraits'
-import { Route as OperaRouteImport } from './routes/opera'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as CommissionRouteImport } from './routes/commission'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BookRouteImport } from './routes/book'
+import { Route as ChristmasRouteImport } from './routes/christmas'
+import { Route as ClientsRouteImport } from './routes/clients'
+import { Route as CommissionRouteImport } from './routes/commission'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as FoodRouteImport } from './routes/food'
+import { Route as JournalRouteImport } from './routes/journal'
+import { Route as LuxuryRouteImport } from './routes/luxury'
+import { Route as OperaRouteImport } from './routes/opera'
+import { Route as PortraitsRouteImport } from './routes/portraits'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SessionPrepRouteImport } from './routes/session-prep'
+import { Route as TheExperienceRouteImport } from './routes/the-experience'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
+import { Route as OperaLeaveBehindRouteImport } from './routes/opera_.leave-behind'
+import { Route as ServicesCommunityRateRouteImport } from './routes/services.community-rate'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
-import { Route as AuthenticatedAdminGalleriesRouteImport } from './routes/_authenticated.admin.galleries'
 import { Route as AuthenticatedAdminEnquiriesRouteImport } from './routes/_authenticated.admin.enquiries'
+import { Route as AuthenticatedAdminGalleriesRouteImport } from './routes/_authenticated.admin.galleries'
 
-const PortraitsRoute = PortraitsRouteImport.update({
-  id: '/portraits',
-  path: '/portraits',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OperaRoute = OperaRouteImport.update({
-  id: '/opera',
-  path: '/opera',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CommissionRoute = CommissionRouteImport.update({
-  id: '/commission',
-  path: '/commission',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -52,13 +50,84 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChristmasRoute = ChristmasRouteImport.update({
+  id: '/christmas',
+  path: '/christmas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommissionRoute = CommissionRouteImport.update({
+  id: '/commission',
+  path: '/commission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoodRoute = FoodRouteImport.update({
+  id: '/food',
+  path: '/food',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LuxuryRoute = LuxuryRouteImport.update({
+  id: '/luxury',
+  path: '/luxury',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperaRoute = OperaRouteImport.update({
+  id: '/opera',
+  path: '/opera',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortraitsRoute = PortraitsRouteImport.update({
+  id: '/portraits',
+  path: '/portraits',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionPrepRoute = SessionPrepRouteImport.update({
+  id: '/session-prep',
+  path: '/session-prep',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TheExperienceRoute = TheExperienceRouteImport.update({
+  id: '/the-experience',
+  path: '/the-experience',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -66,21 +135,36 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const JournalSlugRoute = JournalSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => JournalRoute,
+} as any)
+const OperaLeaveBehindRoute = OperaLeaveBehindRouteImport.update({
+  id: '/opera_/leave-behind',
+  path: '/opera/leave-behind',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesCommunityRateRoute = ServicesCommunityRateRouteImport.update({
+  id: '/community-rate',
+  path: '/community-rate',
+  getParentRoute: () => ServicesRoute,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
-const AuthenticatedAdminGalleriesRoute =
-  AuthenticatedAdminGalleriesRouteImport.update({
-    id: '/galleries',
-    path: '/galleries',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
 const AuthenticatedAdminEnquiriesRoute =
   AuthenticatedAdminEnquiriesRouteImport.update({
     id: '/enquiries',
     path: '/enquiries',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGalleriesRoute =
+  AuthenticatedAdminGalleriesRouteImport.update({
+    id: '/galleries',
+    path: '/galleries',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
@@ -88,11 +172,25 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
+  '/christmas': typeof ChristmasRoute
+  '/clients': typeof ClientsRoute
   '/commission': typeof CommissionRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/food': typeof FoodRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/luxury': typeof LuxuryRoute
   '/opera': typeof OperaRoute
   '/portraits': typeof PortraitsRoute
+  '/services': typeof ServicesRouteWithChildren
+  '/session-prep': typeof SessionPrepRoute
+  '/the-experience': typeof TheExperienceRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/journal/$slug': typeof JournalSlugRoute
+  '/opera/leave-behind': typeof OperaLeaveBehindRoute
+  '/services/community-rate': typeof ServicesCommunityRateRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
   '/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -101,10 +199,24 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
+  '/christmas': typeof ChristmasRoute
+  '/clients': typeof ClientsRoute
   '/commission': typeof CommissionRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/food': typeof FoodRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/luxury': typeof LuxuryRoute
   '/opera': typeof OperaRoute
   '/portraits': typeof PortraitsRoute
+  '/services': typeof ServicesRouteWithChildren
+  '/session-prep': typeof SessionPrepRoute
+  '/the-experience': typeof TheExperienceRoute
+  '/journal/$slug': typeof JournalSlugRoute
+  '/opera/leave-behind': typeof OperaLeaveBehindRoute
+  '/services/community-rate': typeof ServicesCommunityRateRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
   '/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -115,11 +227,25 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
+  '/christmas': typeof ChristmasRoute
+  '/clients': typeof ClientsRoute
   '/commission': typeof CommissionRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
+  '/food': typeof FoodRoute
+  '/journal': typeof JournalRouteWithChildren
+  '/luxury': typeof LuxuryRoute
   '/opera': typeof OperaRoute
   '/portraits': typeof PortraitsRoute
+  '/services': typeof ServicesRouteWithChildren
+  '/session-prep': typeof SessionPrepRoute
+  '/the-experience': typeof TheExperienceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/journal/$slug': typeof JournalSlugRoute
+  '/opera_/leave-behind': typeof OperaLeaveBehindRoute
+  '/services/community-rate': typeof ServicesCommunityRateRoute
   '/_authenticated/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
   '/_authenticated/admin/galleries': typeof AuthenticatedAdminGalleriesRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -130,11 +256,25 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/book'
+    | '/christmas'
+    | '/clients'
     | '/commission'
+    | '/community'
+    | '/contact'
     | '/events'
+    | '/food'
+    | '/journal'
+    | '/luxury'
     | '/opera'
     | '/portraits'
+    | '/services'
+    | '/session-prep'
+    | '/the-experience'
     | '/admin'
+    | '/journal/$slug'
+    | '/opera/leave-behind'
+    | '/services/community-rate'
     | '/admin/enquiries'
     | '/admin/galleries'
     | '/admin/'
@@ -143,10 +283,24 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/book'
+    | '/christmas'
+    | '/clients'
     | '/commission'
+    | '/community'
+    | '/contact'
     | '/events'
+    | '/food'
+    | '/journal'
+    | '/luxury'
     | '/opera'
     | '/portraits'
+    | '/services'
+    | '/session-prep'
+    | '/the-experience'
+    | '/journal/$slug'
+    | '/opera/leave-behind'
+    | '/services/community-rate'
     | '/admin/enquiries'
     | '/admin/galleries'
     | '/admin'
@@ -156,11 +310,25 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/book'
+    | '/christmas'
+    | '/clients'
     | '/commission'
+    | '/community'
+    | '/contact'
     | '/events'
+    | '/food'
+    | '/journal'
+    | '/luxury'
     | '/opera'
     | '/portraits'
+    | '/services'
+    | '/session-prep'
+    | '/the-experience'
     | '/_authenticated/admin'
+    | '/journal/$slug'
+    | '/opera_/leave-behind'
+    | '/services/community-rate'
     | '/_authenticated/admin/enquiries'
     | '/_authenticated/admin/galleries'
     | '/_authenticated/admin/'
@@ -171,54 +339,31 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  BookRoute: typeof BookRoute
+  ChristmasRoute: typeof ChristmasRoute
+  ClientsRoute: typeof ClientsRoute
   CommissionRoute: typeof CommissionRoute
+  CommunityRoute: typeof CommunityRoute
+  ContactRoute: typeof ContactRoute
   EventsRoute: typeof EventsRoute
+  FoodRoute: typeof FoodRoute
+  JournalRoute: typeof JournalRouteWithChildren
+  LuxuryRoute: typeof LuxuryRoute
   OperaRoute: typeof OperaRoute
   PortraitsRoute: typeof PortraitsRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
+  SessionPrepRoute: typeof SessionPrepRoute
+  TheExperienceRoute: typeof TheExperienceRoute
+  OperaLeaveBehindRoute: typeof OperaLeaveBehindRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/portraits': {
-      id: '/portraits'
-      path: '/portraits'
-      fullPath: '/portraits'
-      preLoaderRoute: typeof PortraitsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/opera': {
-      id: '/opera'
-      path: '/opera'
-      fullPath: '/opera'
-      preLoaderRoute: typeof OperaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/commission': {
-      id: '/commission'
-      path: '/commission'
-      fullPath: '/commission'
-      preLoaderRoute: typeof CommissionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -228,11 +373,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/christmas': {
+      id: '/christmas'
+      path: '/christmas'
+      fullPath: '/christmas'
+      preLoaderRoute: typeof ChristmasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commission': {
+      id: '/commission'
+      path: '/commission'
+      fullPath: '/commission'
+      preLoaderRoute: typeof CommissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/food': {
+      id: '/food'
+      path: '/food'
+      fullPath: '/food'
+      preLoaderRoute: typeof FoodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/luxury': {
+      id: '/luxury'
+      path: '/luxury'
+      fullPath: '/luxury'
+      preLoaderRoute: typeof LuxuryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opera': {
+      id: '/opera'
+      path: '/opera'
+      fullPath: '/opera'
+      preLoaderRoute: typeof OperaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portraits': {
+      id: '/portraits'
+      path: '/portraits'
+      fullPath: '/portraits'
+      preLoaderRoute: typeof PortraitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/session-prep': {
+      id: '/session-prep'
+      path: '/session-prep'
+      fullPath: '/session-prep'
+      preLoaderRoute: typeof SessionPrepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/the-experience': {
+      id: '/the-experience'
+      path: '/the-experience'
+      fullPath: '/the-experience'
+      preLoaderRoute: typeof TheExperienceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -242,6 +499,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/journal/$slug': {
+      id: '/journal/$slug'
+      path: '/$slug'
+      fullPath: '/journal/$slug'
+      preLoaderRoute: typeof JournalSlugRouteImport
+      parentRoute: typeof JournalRoute
+    }
+    '/opera_/leave-behind': {
+      id: '/opera_/leave-behind'
+      path: '/opera/leave-behind'
+      fullPath: '/opera/leave-behind'
+      preLoaderRoute: typeof OperaLeaveBehindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/community-rate': {
+      id: '/services/community-rate'
+      path: '/community-rate'
+      fullPath: '/services/community-rate'
+      preLoaderRoute: typeof ServicesCommunityRateRouteImport
+      parentRoute: typeof ServicesRoute
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -249,18 +527,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin/galleries': {
-      id: '/_authenticated/admin/galleries'
-      path: '/galleries'
-      fullPath: '/admin/galleries'
-      preLoaderRoute: typeof AuthenticatedAdminGalleriesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
     '/_authenticated/admin/enquiries': {
       id: '/_authenticated/admin/enquiries'
       path: '/enquiries'
       fullPath: '/admin/enquiries'
       preLoaderRoute: typeof AuthenticatedAdminEnquiriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/galleries': {
+      id: '/_authenticated/admin/galleries'
+      path: '/galleries'
+      fullPath: '/admin/galleries'
+      preLoaderRoute: typeof AuthenticatedAdminGalleriesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
   }
@@ -293,16 +571,61 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface JournalRouteChildren {
+  JournalSlugRoute: typeof JournalSlugRoute
+}
+
+const JournalRouteChildren: JournalRouteChildren = {
+  JournalSlugRoute: JournalSlugRoute,
+}
+
+const JournalRouteWithChildren =
+  JournalRoute._addFileChildren(JournalRouteChildren)
+
+interface ServicesRouteChildren {
+  ServicesCommunityRateRoute: typeof ServicesCommunityRateRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesCommunityRateRoute: ServicesCommunityRateRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  BookRoute: BookRoute,
+  ChristmasRoute: ChristmasRoute,
+  ClientsRoute: ClientsRoute,
   CommissionRoute: CommissionRoute,
+  CommunityRoute: CommunityRoute,
+  ContactRoute: ContactRoute,
   EventsRoute: EventsRoute,
+  FoodRoute: FoodRoute,
+  JournalRoute: JournalRouteWithChildren,
+  LuxuryRoute: LuxuryRoute,
   OperaRoute: OperaRoute,
   PortraitsRoute: PortraitsRoute,
+  ServicesRoute: ServicesRouteWithChildren,
+  SessionPrepRoute: SessionPrepRoute,
+  TheExperienceRoute: TheExperienceRoute,
+  OperaLeaveBehindRoute: OperaLeaveBehindRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

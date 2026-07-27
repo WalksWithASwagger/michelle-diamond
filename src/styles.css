@@ -168,7 +168,80 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes galleryTileIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes lightboxFigureIn {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Dense editorial portfolio wall */
+.gallery-mosaic {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+@media (min-width: 640px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .gallery-mosaic {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+}
+
+.gallery-tile {
+  animation: galleryTileIn 700ms cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+.lightbox-overlay {
+  animation: lightboxIn 280ms ease-out both;
+}
+
+.lightbox-figure {
+  animation: lightboxFigureIn 420ms cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* Compact section rhythm — less endless scroll */
+.section-tight {
+  padding-block: 3.5rem;
+}
+
+@media (min-width: 1024px) {
+  .section-tight {
+    padding-block: 4.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .fade-up { animation: none; }
-  * { transition-duration: 0.001ms !important; }
+  .fade-up,
+  .gallery-tile,
+  .lightbox-overlay,
+  .lightbox-figure {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.001ms !important;
+  }
 }
