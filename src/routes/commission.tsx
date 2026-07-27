@@ -4,13 +4,17 @@ import { useState, useEffect } from "react";
 import { z } from "zod";
 
 import { submitEnquiry, ENQUIRY_CATEGORIES } from "@/lib/enquiries.functions";
+import { siteCopy } from "@/lib/portfolio-data";
 
 const searchSchema = z.object({
   type: z.enum(ENQUIRY_CATEGORIES).optional(),
 });
 
 export const Route = createFileRoute("/commission")({
-  validateSearch: (input) => searchSchema.parse(input),
+  validateSearch: (input) => {
+    const parsed = searchSchema.safeParse(input);
+    return parsed.success ? parsed.data : {};
+  },
   head: () => ({
     meta: [
       { title: "Commission Michelle — Diamond's Edge Photography" },
@@ -30,6 +34,32 @@ export const Route = createFileRoute("/commission")({
   }),
   component: CommissionPage,
 });
+
+function buildMailto(form: FormState): string {
+  const body = [
+    `Occasion: ${form.category}`,
+    `Name: ${form.name}`,
+    form.organization ? `Organization: ${form.organization}` : null,
+    `Email: ${form.email}`,
+    form.phone ? `Phone: ${form.phone}` : null,
+    "",
+    "What is being made:",
+    form.project,
+    "",
+    form.dates ? `Dates: ${form.dates}` : null,
+    form.location ? `Location: ${form.location}` : null,
+    form.coverage ? `Coverage: ${form.coverage}` : null,
+    form.imageUse ? `Image use: ${form.imageUse}` : null,
+    form.deadline ? `Deadline: ${form.deadline}` : null,
+    form.budget ? `Budget: ${form.budget}` : null,
+    form.context ? `\nContext:\n${form.context}` : null,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  const subject = encodeURIComponent(`Commission enquiry — ${form.category}`);
+  return `mailto:${siteCopy.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
 
 type FormState = {
   category: (typeof ENQUIRY_CATEGORIES)[number];
@@ -98,8 +128,17 @@ function CommissionPage() {
       setForm({ ...emptyForm, category: form.category });
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      setStatus("error");
       const msg = err instanceof Error ? err.message : "Something went wrong.";
+      // Offline / no Supabase — open a prefilled mailto so Michelle still gets the enquiry.
+      if (msg.includes("MAILTO_FALLBACK") || msg.includes("Backend is not configured")) {
+        window.location.href = buildMailto(form);
+        setStatus("idle");
+        setErrorMessage(
+          `Opening your email app to send Michelle at ${siteCopy.email}. If nothing opens, email her directly.`,
+        );
+        return;
+      }
+      setStatus("error");
       setErrorMessage(msg);
     }
   }
@@ -309,12 +348,17 @@ function CommissionPage() {
         </fieldset>
 
         {errorMessage && (
-          <p className="mt-8 font-sans-ui text-sm text-destructive">{errorMessage}</p>
+          <p className="mt-8 font-sans-ui text-sm text-ink/80">
+            {errorMessage}{" "}
+            <a href={`mailto:${siteCopy.email}`} className="text-oxblood underline underline-offset-4">
+              {siteCopy.email}
+            </a>
+          </p>
         )}
 
         <div className="mt-16 flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between border-t border-brass/40 pt-10">
           <p className="font-sans-ui text-[11px] tracking-[0.2em] uppercase text-ink/50">
-            Response within two working days
+            {siteCopy.response}
           </p>
           <button
             type="submit"

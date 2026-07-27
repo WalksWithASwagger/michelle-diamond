@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /opera/leave-behind
+Disallow: /services/community-rate
+Disallow: /admin
+Disallow: /auth
+
+Sitemap: https://diamondsedge.ca/sitemap.xml

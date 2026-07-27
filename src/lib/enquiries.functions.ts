@@ -38,7 +38,7 @@ export const submitEnquiry = createServerFn({ method: "POST" })
     const url = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_PUBLISHABLE_KEY;
     if (!url || !key) {
-      throw new Error("Backend is not configured");
+      throw new Error("MAILTO_FALLBACK");
     }
 
     const supabase = createClient(url, key, {

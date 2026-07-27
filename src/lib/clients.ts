@@ -1,0 +1,238 @@
+export type ClientGallery = {
+  slug: string;
+  title: string;
+  eventDate: string;
+  kind: "event" | "portrait" | "family" | "wedding";
+  url: string;
+  protected?: boolean;
+  count?: number;
+  location?: string;
+};
+
+/**
+ * Seed set of publicly linkable client galleries. Update as new galleries land
+ * on Pixieset (or Pic-Time once wired). Password-protected galleries stay in
+ * this list too — visitors need to know the gallery exists to ask for the
+ * password.
+ */
+export const galleries: ClientGallery[] = [
+  {
+    slug: "june-2026-ai-film-club-meetup",
+    title: "AI Film Club Meetup — June 2026",
+    eventDate: "2026-06-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/june2026aifilmclubmeetup/",
+    location: "Vancouver",
+  },
+  {
+    slug: "bc-ai-june-2026-event",
+    title: "BC + AI — June 2026 Event",
+    eventDate: "2026-06-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/bcaijune2026event/",
+    location: "Vancouver / Richmond",
+  },
+  {
+    slug: "creative-mornings-kris-krug-may-2026",
+    title: "Creative Mornings — Kris Krüg — May 2026",
+    eventDate: "2026-05-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/creativemorningskriskrugmay2026/",
+    count: 297,
+    location: "Vancouver",
+  },
+  {
+    slug: "ai-community-meetup-may-2026",
+    title: "AI Community Meetup — May 2026",
+    eventDate: "2026-05-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/aicommunitymeetupmay2026/",
+    location: "Vancouver",
+  },
+  {
+    slug: "2025-tipalti-holiday-party",
+    title: "Tipalti Holiday Party 2025",
+    eventDate: "2025-12-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/tipaltiholidayparty2025/",
+    count: 1195,
+    location: "Vancouver",
+  },
+  {
+    slug: "2025-ktl-holiday-party",
+    title: "KTL Holiday Party Reflections",
+    eventDate: "2025-12-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/ktlholidaypartyreflections/",
+    count: 693,
+    location: "Vancouver",
+  },
+  {
+    slug: "november-ai-meetup",
+    title: "November AI MeetUp",
+    eventDate: "2025-11-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/novemberaimeetup/",
+    count: 228,
+    location: "Vancouver",
+  },
+  {
+    slug: "creative-mornings-october-2025",
+    title: "Creative Mornings — October 2025",
+    eventDate: "2025-10-03",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/creativemorningsoctober2025/",
+    count: 239,
+    location: "Vancouver",
+  },
+  {
+    slug: "vancouver-opera-deer-lake-park",
+    title: "Vancouver Opera — Deer Lake Park",
+    eventDate: "2025-07-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/vancouveroperadeerlakepark/",
+    count: 229,
+    location: "Deer Lake Park · Burnaby",
+  },
+  {
+    slug: "symphony-in-the-park-deer-lake",
+    title: "Symphony in the Park — Deer Lake",
+    eventDate: "2025-07-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/symphonyintheparkatdeerlakeparkburnaby/",
+    count: 231,
+    location: "Deer Lake Park · Burnaby",
+  },
+  {
+    slug: "mayors-charity-ball-2025",
+    title: "Mayor's Charity Ball 2025",
+    eventDate: "2025-05-03",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/mayorscharityball2025/",
+    count: 76,
+    location: "North Delta / Delta, BC",
+  },
+  {
+    slug: "ai-community-meetup-feb-2025",
+    title: "AI Community Meet-Up — Feb 2025",
+    eventDate: "2025-02-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/aicommunitymeet-upfeb2025/",
+    count: 126,
+    location: "Vancouver",
+  },
+  {
+    slug: "uri-birthday-celebration",
+    title: "Uri's Birthday Celebration",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/urisbirthdaycelebration/",
+    count: 577,
+    location: "The Vancouver Club",
+  },
+  {
+    slug: "wcw-show-25",
+    title: "WCW Show '25",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/wcwshow25/",
+    count: 317,
+    location: "Vancouver",
+  },
+  {
+    slug: "vc-private-hangar-2",
+    title: "VC Private Hangar 2 Event",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/vcprivatehanger2event/",
+    count: 294,
+    location: "Vancouver",
+  },
+  {
+    slug: "giulia-pasta-aperol-night",
+    title: "Giulia — Pasta Making + Aperol Spritz Night",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/giuliapastamakingaperolspritznight/",
+    count: 302,
+    location: "Vancouver",
+  },
+  {
+    slug: "highlight-gallery-porsche",
+    title: "Highlight Gallery — Porsche",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/highlightgalleryporsche/",
+    count: 60,
+    location: "Porsche Centre Vancouver",
+  },
+  {
+    slug: "sikh-awards-2025-vancouver",
+    title: "Sikh Awards 2025 — Vancouver",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/sikhawards2025vancouvercanada/",
+    count: 577,
+    location: "Vancouver",
+  },
+  {
+    slug: "hackathon-funk",
+    title: "Hackathon Funk",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/hackathonfunk/",
+    count: 36,
+    location: "Vancouver",
+  },
+  {
+    slug: "lamborghini-highlights",
+    title: "Lamborghini Highlights",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/highlightslamborghini/",
+    count: 32,
+    location: "Vancouver",
+  },
+  {
+    slug: "ki-proposal-highlights",
+    title: "K + I Proposal Highlights",
+    eventDate: "2025-01-01",
+    kind: "family",
+    url: "https://diamondsedgephotography.pixieset.com/kiproposalhightlights/",
+    count: 20,
+    location: "Vancouver",
+  },
+  {
+    slug: "some-favs-music-and-luxury",
+    title: "Some Favs — Music & Luxury",
+    eventDate: "2025-01-01",
+    kind: "event",
+    url: "https://diamondsedgephotography.pixieset.com/somefavsmusicandluxury/",
+    location: "Vancouver",
+  },
+  {
+    slug: "portraits-orpheum",
+    title: "Portraits — Orpheum",
+    eventDate: "2025-01-01",
+    kind: "portrait",
+    url: "https://diamondsedgephotography.pixieset.com/portraitstakenintheorpheumcopy/",
+    count: 101,
+    location: "Orpheum Theatre · Vancouver",
+  },
+  {
+    slug: "im-portraits-see-mo",
+    title: "IM Portraits — See Mo",
+    eventDate: "2025-01-01",
+    kind: "portrait",
+    url: "https://diamondsedgephotography.pixieset.com/importraitsseemo/",
+    count: 94,
+    location: "Vancouver",
+  },
+];
+
+export const galleryCounts = {
+  total: galleries.length,
+  events: galleries.filter((g) => g.kind === "event").length,
+  portraits: galleries.filter((g) => g.kind === "portrait").length,
+  weddings: galleries.filter((g) => g.kind === "wedding").length,
+};

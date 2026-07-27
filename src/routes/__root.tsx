@@ -12,6 +12,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { JsonLd } from "../components/json-ld";
+import { siteCopy } from "../lib/portfolio-data";
+import { localBusiness, michellePerson } from "../lib/schema";
 
 function NotFoundComponent() {
   return (
@@ -79,30 +82,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Diamond's Edge Photography She knows the stage from both sides of the light" },
+      {
+        title: `${siteCopy.fullBrand} — ${siteCopy.headline}`,
+      },
       {
         name: "description",
-        content:
-          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
+        content: siteCopy.tagline,
       },
       { name: "author", content: "Michelle Diamond" },
       { property: "og:site_name", content: "Diamond's Edge Photography" },
-      { property: "og:title", content: "Diamond's Edge Photography She knows the stage from both sides of the light" },
+      {
+        property: "og:title",
+        content: `${siteCopy.fullBrand} — ${siteCopy.headline}`,
+      },
       {
         property: "og:description",
-        content:
-          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
+        content: siteCopy.tagline,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Diamond's Edge Photography She knows the stage from both sides of the light" },
+      {
+        name: "twitter:title",
+        content: `${siteCopy.fullBrand} — ${siteCopy.headline}`,
+      },
       {
         name: "twitter:description",
-        content:
-          "Former opera singer Michelle Diamond photographs performance, rehearsal, portraiture, and the people who make a house come alive.",
+        content: siteCopy.tagline,
       },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3933376b-a391-4094-b4c0-c1314551538a/id-preview-90d6bf80--65dee320-b206-4c2f-befb-c0d6e20458ac.lovable.app-1784789204039.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3933376b-a391-4094-b4c0-c1314551538a/id-preview-90d6bf80--65dee320-b206-4c2f-befb-c0d6e20458ac.lovable.app-1784789204039.png" },
+      { property: "og:image", content: "/gallery/opera/03.jpg" },
+      { name: "twitter:image", content: "/gallery/opera/03.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -126,6 +134,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <JsonLd data={[localBusiness, michellePerson]} />
       </head>
       <body>
         {children}
