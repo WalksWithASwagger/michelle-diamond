@@ -13,7 +13,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { JsonLd } from "../components/json-ld";
-import { siteCopy } from "../lib/portfolio-data";
+import { galleryBase, siteCopy } from "../lib/portfolio-data";
 import { localBusiness, michellePerson } from "../lib/schema";
 
 function NotFoundComponent() {
@@ -109,8 +109,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "twitter:description",
         content: siteCopy.tagline,
       },
-      { property: "og:image", content: "/gallery/opera/03.jpg" },
-      { name: "twitter:image", content: "/gallery/opera/03.jpg" },
+      { property: "og:image", content: `${galleryBase}opera/03.jpg` },
+      { name: "twitter:image", content: `${galleryBase}opera/03.jpg` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

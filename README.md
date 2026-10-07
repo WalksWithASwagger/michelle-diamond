@@ -46,9 +46,24 @@ Public routes work without Supabase. Commission falls back to mailto `hello@diam
 
 ## CI gate
 
-Pull requests that touch `apps/michelle-diamond/**` run `.github/workflows/michelle-diamond-ci.yml`.
-The gate installs dependencies in the app directory with pnpm and runs `pnpm run build`.
-This branch does not yet include a `test:smoke` script, so the workflow is intentionally build-only until lane 12 lands that script.
+`.github/workflows/pages-deploy.yml` builds and prerenders pull requests at
+`/michelle-diamond/`, then verifies every rendered local gallery reference
+against the static output. Only main can upload and deploy the Pages artifact;
+pull requests have read-only repository permissions and cannot deploy.
+
+From the repository root:
+
+```bash
+npm ci
+MICHELLE_DIAMOND_PUBLIC_BASE=/michelle-diamond/ npm run build
+MICHELLE_DIAMOND_PUBLIC_BASE=/michelle-diamond/ node scripts/prerender-public-pages.mjs
+MICHELLE_DIAMOND_PUBLIC_BASE=/michelle-diamond/ npm run test:public-assets
+```
+
+The canonical maintained app now lives at
+[`kk-kb/apps/michelle-diamond`](https://github.com/WalksWithASwagger/kk-kb/tree/main/apps/michelle-diamond).
+This source repository remains live for Pages during migration. This repair
+mirrors kk-kb #4491; it does not retire the source or change hosting routes.
 
 ## Ported from prior iterations
 

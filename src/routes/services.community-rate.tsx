@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { siteCopy } from "@/lib/portfolio-data";
+import { galleryBase, siteCopy } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/services/community-rate")({
   head: () => ({
@@ -48,7 +48,7 @@ function CommunityRatePage() {
         <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-20 lg:grid-cols-12 lg:px-12 lg:py-28">
           <div className="lg:col-span-5">
             <img
-              src="/gallery/community/meetup-01.jpg"
+              src={`${galleryBase}community/meetup-01.jpg`}
               alt="Community speaker at Vancouver AI — example of Michelle's meetup-room craft"
               className="w-full aspect-[4/5] object-cover"
             />

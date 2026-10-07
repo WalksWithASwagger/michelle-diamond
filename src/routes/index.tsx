@@ -9,6 +9,7 @@ import opera5 from "@/assets/opera-5-ensemble.jpg";
 import opera6 from "@/assets/opera-6-curtain.jpg";
 import {
   culturalContext,
+  galleryBase,
   homeChristmasStrip,
   homeCommunityStrip,
   homeFoodStrip,
@@ -206,15 +207,15 @@ function HomePage() {
                 alt: homePortraitAlts[i],
               })),
               {
-                src: "/gallery/portraits/seemo-03.jpg",
+                src: `${galleryBase}portraits/seemo-03.jpg`,
                 alt: "See Mo portrait — direct gaze and city bokeh",
               },
               {
-                src: "/gallery/portraits/seemo-07.jpg",
+                src: `${galleryBase}portraits/seemo-07.jpg`,
                 alt: "See Mo portrait — smile over the rail",
               },
               {
-                src: "/gallery/portraits/orph-07.jpg",
+                src: `${galleryBase}portraits/orph-07.jpg`,
                 alt: "Orpheum portrait reflected across the grand piano",
               },
             ].map((frame, i) => (
