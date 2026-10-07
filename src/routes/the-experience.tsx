@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { siteCopy } from "@/lib/portfolio-data";
+import { galleryBase, siteCopy } from "@/lib/portfolio-data";
 
 export const Route = createFileRoute("/the-experience")({
   head: () => ({
@@ -80,7 +80,7 @@ function TheExperiencePage() {
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
             <img
-              src="/gallery/opera/02.jpg"
+              src={`${galleryBase}opera/02.jpg`}
               alt="Intimate portrait showing presence work — Deer Lake craft plate"
               className="w-full aspect-[4/5] object-cover"
             />

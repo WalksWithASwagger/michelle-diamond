@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test:smoke": "playwright test"
+    "test:smoke": "playwright test",
+    "test:public-assets": "node scripts/check-public-gallery-assets.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
